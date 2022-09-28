@@ -17,10 +17,19 @@ gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
+gem 'bulma-rails', '~> 0.9.3'
+gem 'simple_form', '~> 5.1'
+gem 'net-smtp', require: false
+gem 'gravatar_image_tag', '~> 1.2'
+gem 'devise', '~> 4.8', '>= 4.8.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'better_errors', '~> 2.9', '>= 2.9.1'
+gem 'guard', '~> 2.18'
+gem 'guard-livereload', require: false
+gem 'rack-livereload'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
