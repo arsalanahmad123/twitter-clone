@@ -1,9 +1,58 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Tweet:</strong>
-  <%= @tweet.tweet %>
-</p>
-
-<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
-<%= link_to 'Back', tweets_path %>
+<section class="section">
+  <div class="container">
+    <h1 class="has-text-centered title"> Enjoy the Tweet </h1>
+    <div class="columns ">
+        <div class="column is-quarter">
+    <nav class="panel">
+        <p class="panel-heading">Profile</p>
+        <div class="panel-block">
+            <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <%= link_to gravatar_image_tag(@tweet.user.email,size: 64, alt: @tweet.user.name),@tweet.user %>
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong><%= link_to @tweet.user.name, @tweet.user %></strong><br>
+                            <small><%= @tweet.user.username %></small>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            </div>
+            <div class="panel-block">
+                <div class="level is-mobile">
+                    <div class="level-item has-centered-text">
+                        <div>
+                            <p class="heading">Tweets</p>
+                            <p class="title is-6"><%= @tweet.user.tweets.count %></p>
+                        </div>
+                    </div>
+                    <div class="level-item has-centered-text">
+                        <div>
+                            <p class="heading">Following</p>
+                            <p class="title is-6">123</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-centered-text">
+                        <div>
+                            <p class="heading">Followers</p>
+                            <p class="title is-6">465K</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </nav>
+</div>
+        <div class="is-two-thirds">
+          <article class="message mt-4 box is-link is-family-monospace">
+            <div class="message-body">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+            </div>
+          </article>
+        </div>
+    </div>
+  </div>
+</section>

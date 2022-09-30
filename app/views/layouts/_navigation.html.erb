@@ -1,7 +1,7 @@
 <nav class="navbar is-info" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <%= link_to root_path,class:"navbar-item" do %>
-      <h1 class="title">Twitter</h1>
+      <h1 class="title" id="logo-title">Twitter</h1>
       <% end %>
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
@@ -46,10 +46,27 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-         <%= link_to "New Tweet", new_tweet_path, class:"button is-primary is-inverted" %>
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
+        <% if user_signed_in? %>
+         <%= link_to "New Tweet", root_path, class:"button is-primary is-inverted" %>
+         <% end %>
+         <% if !user_signed_in? %>
+         <button class="button is-primary is-inverted" id="myBtn">New Tweet</button>
+          <div id="myModal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content has-text-centered">
+                <span class="close">&times;</span><br>
+                <h1 class="title">Want to create a Tweet?</h1>
+                <p class="subtitle is-4">You need to <%= link_to "Sign up",new_user_registration_path,class:"is-link" %> or <%= link_to "Sign in",new_user_session_path,class:"is-link" %> before continuing!!! </p>
+              </div>
+            </div>
+         <% end %>
+         <% if !user_signed_in? %>
+          <%= link_to "Sign up", new_user_registration_path,class:"button is-info" %>
+          <%= link_to "Sign in", new_user_session_path,class:"button is-info" %>
+          <% else %>
+          <%= link_to current_user.name,edit_user_registration_path,class:"button is-info" %>
+          <%= link_to "Log out",destroy_user_session_path,method: :delete,class:"button is-info" %>
+          <% end %>
         </div>
       </div>
     </div>

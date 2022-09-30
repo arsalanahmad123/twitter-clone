@@ -1,8 +1,9 @@
 <div class="column is-half">
+    <% if user_signed_in? %>
     <article class="media box">
       <figure class="media-left">
         <p class="image is-64x64">
-          <img src="https://bulma.io/images/placeholders/128x128.png">
+          <%= gravatar_image_tag(current_user.email,size: 64, alt: current_user.name) %>
         </p>
       </figure>
       <div class="media-content">
@@ -10,26 +11,28 @@
           <%= render 'tweets/form' %>
         </div>
     </article>
+    <% end %>
 
 <% @tweets.each do |tweet| %>
 <article class="media box">
   <div class="media-left">
     <figure class="image is-64x64">
-      <img src="https://bulma.io/images/placeholders/128x128.png">
+      <%= link_to gravatar_image_tag(tweet.user.email,size: 64, alt: tweet.user.name),user_path(tweet.user) %>
     </figure>
   </div>
   <div class="media-content">
     <div class="content">
       <p>
-        <strong>John Smith</strong> 
+        <strong><%= tweet.user.name %></strong> 
         <br>
-        <small>@johnsmith</small>
+        <small><%= tweet.user.username %></small>
         <br>
-        <%= tweet.tweet %>
+        <%= link_to tweet.tweet,tweet_path(tweet) %>
       </p>
     </div>
     <nav class="level">
       <div class="level-left is-mobile">
+        <% if current_user && current_user==tweet.user %>
         <%= link_to tweet, class:"level-item " do %>
             <span class="icon">
                 <i class="fa fa-link" aria-hidden="true"></i>
@@ -45,6 +48,23 @@
                 <i class="fa fa-trash" aria-hidden="true"></i>
             </span>
         <% end %>
+        <% end %>
+                    <% if user_signed_in? %>
+                            <% if current_user.liked? tweet %>
+                                <p>
+                                    <%= link_to unlike_tweet_path(tweet),method: :put  do %>
+                                        <i class="fa fa-heart" id="unlike-button" ><%= tweet.get_likes.size %></i> 
+                                    <% end %>
+                                </p>
+                            <% else %>  
+                                    <%= link_to like_tweet_path(tweet), method: :put  do %>
+                                        <i class="fa fa-heart" id="like-button"> <%= tweet.get_likes.size %></i>
+                                    <% end %>
+                            <% end %>  
+
+                            <% end %>
+
+
       </div>
     </nav>
 </article>

@@ -1,10 +1,13 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: %i[ show edit update destroy ]
+  before_action :set_tweet, only: %i[ show edit update destroy require_same_user like unlike ]
+  before_action :authenticate_user!, except: [:index,:show]
+  before_action :require_same_user, only: [:edit,:update,:destroy]
 
   # GET /tweets or /tweets.json
   def index
     @tweets = Tweet.all.order("created_at DESC")
     @tweet = Tweet.new
+    @users = User.all
   end
 
   # GET /tweets/1 or /tweets/1.json
@@ -22,7 +25,7 @@ class TweetsController < ApplicationController
 
   # POST /tweets or /tweets.json
   def create
-    @tweet = Tweet.new(tweet_params)
+    @tweet = current_user.tweets.build(tweet_params)
 
     respond_to do |format|
       if @tweet.save
@@ -58,6 +61,22 @@ class TweetsController < ApplicationController
     end
   end
 
+
+  def like
+        @tweet.liked_by current_user
+        respond_to do |format|
+            format.html { redirect_to root_path }
+        end
+    end
+
+    def unlike
+        @tweet.unliked_by current_user
+        respond_to do |format|
+            format.html { redirect_to root_path }
+        end
+    end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
@@ -68,4 +87,10 @@ class TweetsController < ApplicationController
     def tweet_params
       params.require(:tweet).permit(:tweet)
     end
+
+    def require_same_user
+      if current_user && current_user = @tweet.user 
+      end
+    end 
+
 end

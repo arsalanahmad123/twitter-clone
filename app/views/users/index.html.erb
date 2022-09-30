@@ -1,0 +1,36 @@
+<section class="hero is-success has-text-centered">
+  <div class="hero-body">
+    <p class="title">
+      All Users
+    </p>
+    <p class="subtitle">
+      Be a part of us and join amazing twitter functinalities
+    </p>
+  </div>
+</section>
+
+<div class="columns is-centered box">
+    <div class="column is-half">
+        <% @users.each do |user| %>
+            <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <%= gravatar_image_tag(user.email,size: 64, alt:user.name) %>
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong><%= user.name %></strong> 
+                            <br>
+                            <small><%= user.username %></small>
+                            <br>
+                            Tweets: <%= user.tweets.count %>
+                        </p>
+                        <%= link_to "Delete User",user_path(user), method: :delete,data: {confirm: "Are you sure you want to delete this user account from twitter??"} ,class:"button is-danger" %>
+                    </div>
+                </div>
+            </article>
+        <% end %>
+    </div>
+</div>
