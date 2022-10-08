@@ -23,9 +23,6 @@ gem 'net-smtp', require: false
 gem 'gravatar_image_tag', '~> 1.2'
 gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'acts_as_votable'
-gem 'omniauth'
-gem "omniauth-rails_csrf_protection"
-gem 'omniauth-google-oauth2'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
